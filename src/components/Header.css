@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.other {
+  display: flex;
+  gap: 15px;
+  color: rgba(0, 0, 0, 0.8);
+  font-family: pretendard;
+}
+
+.header-contents {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.material-symbols-outlined {
+  font-size: 2em;
+}

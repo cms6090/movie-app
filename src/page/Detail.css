@@ -1,0 +1,35 @@
+.detail-container {
+  padding: 20px 0;
+  color: #333;
+}
+
+.detail-header {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.detail-poster {
+  width: 185px;
+  height: 260px;
+}
+
+.detail-info {
+  width: 100%;
+}
+
+.youtube-player {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.youtube-player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,59 @@
+.movies-card-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  align-items: stretch;
+}
+
+.movies-movie-card {
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 5em;
+}
+
+.movies-movie-card-image {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.movies-movie-info {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.movies-movie-card-title {
+  font-size: 1.1em;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.movies-movie-card-release {
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  color: #555;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.movies-ticket-button {
+  border-radius: 0.5em;
+  text-decoration: none;
+  padding: 0.3em 0.8em;
+  font-weight: bold;
+  background-color: #e63946;
+  color: white;
+}
+
+.movies-ticket-button:hover {
+  background-color: #d62839;
+}
+
+.movies-movie-card-buttons {
+  display: flex;
+}

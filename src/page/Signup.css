@@ -1,0 +1,54 @@
+.verification-container {
+  max-width: 35%;
+  margin: 3% auto; /* 페이지 중앙 정렬 */
+  padding: 20px;
+  background-color: #fff; /* 배경색 */
+  border-radius: 10px;
+}
+
+.email input,
+.password input,
+.user-name input,
+.telno input {
+  width: 100%;
+  padding: 1em 1em;
+  border-radius: 10px;
+  border: none;
+  font-size: 1em;
+  background-color: rgba(222, 222, 222, 0.4);
+}
+
+.email,
+.password,
+.user-name,
+.telno {
+  margin: 3% 0%;
+}
+
+.send-button {
+  background-color: #e63946;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 3%;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.send-button.disabled {
+  background-color: gray; /* 비활성화된 버튼 색상 */
+  cursor: not-allowed; /* 비활성화 시 커서 스타일 */
+}
+
+.signup-form {
+  margin-bottom: 5%;
+  font-weight: 600;
+  font-size: 0.9em;
+}
+
+label {
+  font-size: 0.9em;
+}

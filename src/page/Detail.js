@@ -6,6 +6,7 @@ const movies = [
   {
     id: "1",
     title: "모아나2",
+    en_title: "MOANA2",
     releaseDate: "2024-01-01",
     감독: "데이비드 데릭 주니어",
     배우: "아우이 크라발호 ,  드웨인 존슨",
@@ -18,6 +19,7 @@ const movies = [
   {
     id: "2",
     title: "소방관",
+    en_title: "FIREFIGHTERS",
     releaseDate: "2024-02-15",
     감독: "곽경택",
     배우: "주원 (문준원) ,  곽도원 ,  유재명 ,  이유영 ,  김민재 ,  오대환 ,  이준혁 ,  장영남",
@@ -29,6 +31,7 @@ const movies = [
   {
     id: "3",
     title: "1승",
+    en_title: "One Win",
     releaseDate: "2024-03-10",
     감독: "신연식",
     배우: "송강호 ,  박정민 ,  장윤주",
@@ -40,6 +43,7 @@ const movies = [
   {
     id: "4",
     title: "위키드",
+    en_title: "Wicked",
     releaseDate: "2024-04-15",
     감독: "존 추",
     배우: "아리아나 그란데 ,  신시아 에리보 ,  조나단 베일리 ,  에단 슬레이터 ,  양자경 ,  제프 골드브럼",
@@ -60,6 +64,7 @@ const movies = [
   {
     id: "6",
     title: "히든 페이스",
+    en_title: "HIDDEN FACE",
     releaseDate: "2024-02-15",
     감독: "김대우",
     프로듀서: "박재현 ,  송지은 ,  박경서",
@@ -72,6 +77,7 @@ const movies = [
   {
     id: "7",
     title: "더 크로우",
+    en_title: "The Crow",
     releaseDate: "2024-03-10",
     image:
       "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89310/89310_320.jpg",
@@ -79,6 +85,7 @@ const movies = [
   {
     id: "8",
     title: "원정빌라",
+    en_title: "The Unrighteous",
     releaseDate: "2024-04-15",
     image:
       "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89097/89097_320.jpg",
@@ -86,6 +93,7 @@ const movies = [
   {
     id: "9",
     title: "엔시티 드림 미스터리 랩: 드림 이스케이프 인 시네마",
+    en_title: "NCT DREAM Mystery Lab: DREAM( )SCAPE in Cinemas",
     releaseDate: "2024-04-15",
     image:
       "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89295/89295_320.jpg",
@@ -93,6 +101,7 @@ const movies = [
   {
     id: "10",
     title: "인터스텔라",
+    en_title: "Interstellar",
     releaseDate: "2024-04-15",
     image:
       "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000077/77372/77372_320.jpg",
@@ -118,11 +127,15 @@ const Detail = () => {
                 style={{
                   fontSize: "1.3em",
                   fontWeight: "600",
-                  marginBottom: "1em",
                 }}
               >
                 {movie.title}
               </div>
+              {movie.en_title ? (
+                <div style={{ marginBottom: "1em", fontSize:'0.8em', fontWeight:'500' }}>{movie.en_title}</div>
+              ) : (
+                <div style={{ marginBottom: "1em" }}></div>
+              )}
               <hr />
               <div style={{ marginTop: "1em", lineHeight: "2em" }}>
                 <div>감독: {movie.감독}</div>

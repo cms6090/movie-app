@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Header.css";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { LuUserRoundPlus } from "react-icons/lu";
-import { CiLock, CiUnlock, CiUser, CiBookmark } from "react-icons/ci";
-import { BiCameraMovie } from "react-icons/bi";
-import { IoTicketOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (

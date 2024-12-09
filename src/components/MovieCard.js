@@ -99,7 +99,7 @@ const MovieCard = () => {
   };
 
   return (
-    <div className="main-container">
+    <div>
       <h2>무비 차트</h2>
       <div className="movie-card-container">
         <Swiper

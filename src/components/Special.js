@@ -3,13 +3,21 @@ import { useState, useEffect, useRef } from "react";
 
 const Special = () => {
   const speciallist = [
-    { title: "IMAX", info: "# 궁극의 몰입감", url: "/assets/IMAX.jpg" },
-    { title: "4DX", info: "# 모션 시트 # 오감 체험", url: "/assets/4DX.jpg" },
-    { title: "SCREENX", info: "# 3면 확장 스크린", url: "/assets/SCREENX.jpg" },
+    { title: "IMAX", info: "# 궁극의 몰입감", url: "/assets/special/IMAX.jpg" },
+    {
+      title: "4DX",
+      info: "# 모션 시트 # 오감 체험",
+      url: "/assets/special/4DX.jpg",
+    },
+    {
+      title: "SCREENX",
+      info: "# 3면 확장 스크린",
+      url: "/assets/special/SCREENX.jpg",
+    },
     {
       title: "CINE & LIVINGROOM",
       info: "# 신개념 소셜 상영관",
-      url: "/assets/CINE & LIVINGROOM.jpg",
+      url: "/assets/special/CINE & LIVINGROOM.jpg",
     },
   ];
 

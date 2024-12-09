@@ -4,8 +4,8 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import "./MovieCard.css";
 
-const arrowLeft = "/assets/Arrowleft.svg";
-const arrowRight = "/assets/Arrowright.svg";
+const arrowLeft = "/assets/img/Arrowleft.svg";
+const arrowRight = "/assets/img/Arrowright.svg";
 
 const MovieCard = () => {
   const movies = [

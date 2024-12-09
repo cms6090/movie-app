@@ -1,3 +1,7 @@
+.movies-container {
+  margin: 0 20%;
+}
+
 .movies-card-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);

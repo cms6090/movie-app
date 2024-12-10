@@ -1,6 +1,5 @@
-import { useParams, Link } from "react-router-dom";
-import "./Detail.css";
-import YouTube from "react-youtube";
+import { useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const movies = [
   {
@@ -108,92 +107,60 @@ const movies = [
   },
 ];
 
-const Detail = () => {
-  const { id } = useParams();
-  const movie = movies.find((movie) => movie.id === id);
+const Query = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const searchQuery = queryParams.get("search") || "";
+
+  const removeSpaces = (str) => str.replace(/\s+/g, "").toLowerCase();
+
+  const filteredMovies = movies.filter(
+    (movie) =>
+      removeSpaces(movie.title).includes(removeSpaces(searchQuery)) ||
+      removeSpaces(movie.en_title || "").includes(removeSpaces(searchQuery))
+  );
 
   return (
-    <div className="detail-container">
-      {movie ? (
-        <>
-          <div className="detail-header">
-            <img
-              src={movie.image}
-              alt={movie.title}
-              className="detail-poster"
-            />
-            <div className="detail-info">
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+    <div style={{ margin: "0 20%" }}>
+      <h3>검색 결과 : "{searchQuery}"</h3>
+      <div className="movies-card-container">
+        {filteredMovies.length > 0 ? (
+          filteredMovies.map((movie) => (
+            <div key={movie.id} style={{ marginBottom: "1em" }}>
+              <NavLink
+                to={`/movies/detail/${movie.id}`}
+                className="movies-movie-card-wrap"
+              >
                 <div>
-                  <div
-                    style={{
-                      fontSize: "1.3em",
-                      fontWeight: "600",
-                    }}
-                  >
-                    {movie.title}
-                  </div>
-                  {movie.en_title ? (
-                    <div
-                      style={{
-                        fontSize: "0.8em",
-                        fontWeight: "500",
-                      }}
-                    >
-                      {movie.en_title}
-                    </div>
-                  ) : (
-                    <div style={{ marginBottom: "1em" }}></div>
-                  )}
+                  <img
+                    src={movie.image}
+                    alt={movie.title}
+                    className="movies-movie-card-image"
+                  />
                 </div>
-                <Link
+                <div className="movies-movie-info">
+                  <div className="movies-movie-card-title">{movie.title}</div>
+                </div>
+              </NavLink>
+              <div className="movies-movie-card-release">
+                개봉일: {movie.releaseDate}
+              </div>
+              <div className="movies-movie-card-buttons">
+                <NavLink
                   to={`/ticket/${movie.id}`}
-                  className="movie-card-hover-button"
-                  style={{
-                    color: "white",
-                    background: "#e63946",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
+                  className="movies-ticket-button"
                 >
                   예매하기
-                </Link>
-              </div>
-              <hr />
-              <div style={{ marginTop: "1em", lineHeight: "2em" }}>
-                <div>감독: {movie.감독}</div>
-                {movie.배우 && <div>배우: {movie.배우}</div>}
-                {movie.프로듀서 && <div>프로듀서: {movie.프로듀서}</div>}
-                <div>기본 정보: {movie.기본정보}</div>
-                <div className="detail-release">
-                  개봉일: {movie.releaseDate}
-                </div>
-                <div className="detail-description">장르: {movie.장르}</div>
+                </NavLink>
               </div>
             </div>
-          </div>
-          <div className="detail-content">
-            <p>{movie.title}의 주요 줄거리 내용을 여기에 추가하세요.</p>
-          </div>
-          <hr />
-          <YouTube
-            videoId={movie.youtubekey}
-            opts={{
-              width: "100%",
-              height: "auto",
-              playerVars: {
-                autoplay: 0,
-                rel: 0,
-              },
-            }}
-            className="youtube-player"
-          />
-        </>
-      ) : (
-        <p>영화를 찾을 수 없습니다.</p>
-      )}
+          ))
+        ) : (
+          <p style={{ textAlign: "center" }}>검색 결과가 없습니다</p>
+        )}
+      </div>
     </div>
   );
 };
 
-export default Detail;
+export default Query;

@@ -9,6 +9,8 @@ import Ticket from "./page/Ticket";
 import Signup from "./page/Signup";
 import Detail from "./page/Detail";
 import Seats from "./page/Seats";
+import Search from "./components/Search";
+import Query from "./page/Query";
 // import MyPage from "./page/MyPage";
 
 function App() {
@@ -18,6 +20,7 @@ function App() {
         <Router>
           <div className="content">
             <Header />
+            <Search />
             <Routes>
               <Route path="/" element={<Main />} />
               <Route path="/login" element={<Login />} />
@@ -28,6 +31,7 @@ function App() {
               </Route>
               <Route path="/ticketSeat" element={<Seats />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/query" element={<Query />} />
               {/* <Route path="/mypage" element={<MyPage />} /> */}
             </Routes>
           </div>

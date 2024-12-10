@@ -8,6 +8,8 @@ import Movies from "./page/Movies";
 import Ticket from "./page/Ticket";
 import Signup from "./page/Signup";
 import Detail from "./page/Detail";
+import Seats from "./page/Seats";
+// import MyPage from "./page/MyPage";
 
 function App() {
   return (
@@ -24,7 +26,9 @@ function App() {
               <Route path="/ticket" element={<Ticket />}>
                 <Route path=":id" element={<Ticket />} />
               </Route>
+              <Route path="/ticketSeat" element={<Seats />} />
               <Route path="/signup" element={<Signup />} />
+              {/* <Route path="/mypage" element={<MyPage />} /> */}
             </Routes>
           </div>
         </Router>

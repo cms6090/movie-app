@@ -100,7 +100,7 @@ const getNextDays = (numDays) => {
   return days;
 };
 
-const Ticket = () => {
+const Ticket = ({ user }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [dates, setDates] = useState(getNextDays(21));
@@ -141,7 +141,7 @@ const Ticket = () => {
 
   const handleButtonClick = () => {
     if (!isButtonDisabled) {
-      navigate("/ticketSeat", {
+      navigate("/seats", {
         state: {
           theater,
           movie,
@@ -162,7 +162,6 @@ const Ticket = () => {
           <span className="material-symbols-outlined">refresh</span>다시하기
         </button>
       </div>
-
       <div className="ticket-container">
         <div className="theater-section">
           <h3 className="section-title">{theater}</h3>
@@ -184,7 +183,6 @@ const Ticket = () => {
             ))}
           </ul>
         </div>
-
         <div className="movie-section">
           <h3 className="section-title">{movie}</h3>
           <ul className="movie-list">
@@ -205,7 +203,6 @@ const Ticket = () => {
             ))}
           </ul>
         </div>
-
         <div className="date-section">
           <h3 className="section-title">{date}</h3>
           <div className="date-selector">

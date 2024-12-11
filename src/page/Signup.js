@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebaseinit";
 import "./Signup.css";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [errors, setErrors] = useState({
     email: "",
     password: "",
-    userName: "",
-    phoneNumber: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -22,8 +22,6 @@ const Signup = () => {
     const newErrors = {
       email: "",
       password: "",
-      userName: "",
-      phoneNumber: "",
     };
 
     if (!email) {
@@ -38,37 +36,28 @@ const Signup = () => {
       newErrors.password = "비밀번호는 6자 이상이어야 합니다.";
     }
 
-    if (!userName) {
-      newErrors.userName = "사용자 이름을 입력하세요.";
-    }
-
-    if (!phoneNumber) {
-      newErrors.phoneNumber = "휴대폰 번호를 입력하세요.";
-    } else if (!/^\d{10,11}$/.test(phoneNumber)) {
-      newErrors.phoneNumber = "유효한 휴대폰 번호를 입력하세요.";
-    }
-
     setErrors(newErrors);
     return Object.values(newErrors).every((error) => error === "");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitted(true);
 
     if (validateFields()) {
-      console.log("Form submitted:", {
-        email,
-        password,
-        userName,
-        phoneNumber,
-      });
-      alert("가입이 완료되었습니다!");
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("회원가입에 성공하였습니다.");
+        navigate("/");
+      } catch (error) {
+        alert("회원가입 중 오류가 발생했습니다. 다시 시도하세요.");
+        console.error(error);
+      }
     }
   };
 
   const isFormValid = () => {
-    return email && password && password.length >= 6 && userName && phoneNumber;
+    return email && password && password.length >= 6;
   };
 
   return (
@@ -105,38 +94,6 @@ const Signup = () => {
           />
           {isSubmitted && errors.password && (
             <div className="error-message">{errors.password}</div>
-          )}
-        </div>
-        <div className="user-name">
-          <label htmlFor="userName">
-            사용자 이름<span style={{ color: "red" }}>*</span>
-          </label>
-          <input
-            type="text"
-            id="userName"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            placeholder="사용자 이름"
-            required
-          />
-          {isSubmitted && errors.userName && (
-            <div className="error-message">{errors.userName}</div>
-          )}
-        </div>
-        <div className="telno">
-          <label htmlFor="phone">
-            휴대폰 번호<span style={{ color: "red" }}>*</span>
-          </label>
-          <input
-            type="text"
-            id="phone"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="01012345678"
-            required
-          />
-          {isSubmitted && errors.phoneNumber && (
-            <div className="error-message">{errors.phoneNumber}</div>
           )}
         </div>
         <button

@@ -7,9 +7,7 @@
 }
 
 .email input,
-.password input,
-.user-name input,
-.telno input {
+.password input {
   width: 100%;
   padding: 1em 1em;
   border-radius: 10px;
@@ -19,9 +17,7 @@
 }
 
 .email,
-.password,
-.user-name,
-.telno {
+.password {
   margin: 3% 0%;
 }
 

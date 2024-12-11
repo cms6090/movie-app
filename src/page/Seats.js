@@ -121,16 +121,23 @@ const Seats = () => {
               )}\n선택된 영화관 : ${theater}\n선택된 영화 : ${movie}\n선택된 날짜 : ${date}\n선택된 시간 : ${time}`
             )
           }
-          disabled={selectedSeats.length !== peopleNum}
+          disabled={selectedSeats.length !== peopleNum || peopleNum === 0}
           style={{
             padding: "10px 20px",
             backgroundColor:
-              selectedSeats.length === peopleNum ? "#4CAF50" : "#ccc",
-            color: selectedSeats.length === peopleNum ? "white" : "#777",
+              selectedSeats.length === peopleNum && peopleNum !== 0
+                ? "#4CAF50"
+                : "#ccc",
+            color:
+              selectedSeats.length === peopleNum && peopleNum !== 0
+                ? "white"
+                : "#777",
             border: "none",
             borderRadius: "5px",
             cursor:
-              selectedSeats.length === peopleNum ? "pointer" : "not-allowed",
+              selectedSeats.length === peopleNum && peopleNum !== 0
+                ? "pointer"
+                : "not-allowed",
           }}
         >
           선택 완료

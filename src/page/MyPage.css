@@ -1,0 +1,71 @@
+.mypage-container {
+  margin: 1em 20%;
+}
+
+/* 탭 컨테이너 */
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid black;
+}
+
+/* 탭 버튼 */
+.tab-button {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* 활성화된 탭의 스타일 */
+.tab-button.active {
+  background-color: #e63946; /* 클릭된 탭의 배경색 */
+  color: white; /* 클릭된 탭의 텍스트 색상 */
+}
+
+/* 기본 탭의 텍스트 색상 */
+.tab-button:not(.active) {
+  color: black;
+}
+
+/* 탭 내용 */
+.tab-content {
+  padding: 10px;
+  background-color: #f1faee; /* 내용의 배경색 */
+}
+
+.leave-container {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.leave-container input {
+  padding: 0.5em;
+  border: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+.leave-info {
+  display: flex;
+  justify-content: center;
+  margin: 2em 0 1em;
+}
+
+.leave-info td {
+  padding: 0.5em 2em;
+}
+
+.leave-info input {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 0.5em;
+}
+
+.leave-check {
+  color: white;
+  background: #e63946;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 10px;
+}

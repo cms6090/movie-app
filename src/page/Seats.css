@@ -1,0 +1,27 @@
+.seat-container {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+}
+
+.seat-sections {
+  border: 1px solid rgba(0, 0, 0, 0.85);
+  line-height: 1.5em;
+  padding: 1em;
+}
+
+.seat-movie-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.seat-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.seat-button {
+  padding: 5px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+}

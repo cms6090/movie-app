@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./Ticket.css";
 import { useState, useEffect } from "react";
 
@@ -92,7 +92,7 @@ const getNextDays = (numDays) => {
     const weekday = weekdays[date.getDay()];
 
     days.push({
-      formattedDate: `${year}-${month}-${day}(${weekday})`,
+      formattedDate: `${year}-${month}-${day}(${weekday})`, // 변경된 형식
       day: weekday,
     });
   }
@@ -100,8 +100,9 @@ const getNextDays = (numDays) => {
   return days;
 };
 
-const Ticket = () => {
+const Ticket = ({ user }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [dates, setDates] = useState(getNextDays(21));
   const [theater, setTheater] = useState("영화관");
   const [movie, setMovie] = useState("영화 선택");
@@ -140,15 +141,19 @@ const Ticket = () => {
 
   const handleButtonClick = () => {
     if (!isButtonDisabled) {
-      alert("버튼 누름");
+      navigate("/seats", {
+        state: {
+          theater,
+          movie,
+          date,
+          time,
+        },
+      });
     }
   };
 
   const isButtonDisabled =
-    theater === "영화관" ||
-    movie === "영화 선택" ||
-    date === dates[0].formattedDate ||
-    time === "시간 선택";
+    theater === "영화관" || movie === "영화 선택" || time === "시간 선택";
 
   return (
     <div style={{ margin: "2em 20%" }}>
@@ -157,7 +162,6 @@ const Ticket = () => {
           <span className="material-symbols-outlined">refresh</span>다시하기
         </button>
       </div>
-
       <div className="ticket-container">
         <div className="theater-section">
           <h3 className="section-title">{theater}</h3>
@@ -179,7 +183,6 @@ const Ticket = () => {
             ))}
           </ul>
         </div>
-
         <div className="movie-section">
           <h3 className="section-title">{movie}</h3>
           <ul className="movie-list">
@@ -200,7 +203,6 @@ const Ticket = () => {
             ))}
           </ul>
         </div>
-
         <div className="date-section">
           <h3 className="section-title">{date}</h3>
           <div className="date-selector">
@@ -245,22 +247,29 @@ const Ticket = () => {
           </div>
         </div>
       </div>
-
-      <button
-        disabled={isButtonDisabled}
-        onClick={handleButtonClick}
+      <div
         style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          backgroundColor: isButtonDisabled ? "#ccc" : "#4CAF50",
-          color: isButtonDisabled ? "#777" : "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: isButtonDisabled ? "not-allowed" : "pointer",
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: "1em",
         }}
       >
-        <h3>인원/좌석 선택</h3>
-      </button>
+        <button
+          disabled={isButtonDisabled}
+          onClick={handleButtonClick}
+          style={{
+            backgroundColor: isButtonDisabled ? "#ccc" : "#4CAF50",
+            color: isButtonDisabled ? "#777" : "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: isButtonDisabled ? "not-allowed" : "pointer",
+          }}
+        >
+          <div style={{ padding: "1em", fontSize: "1.1em" }}>
+            인원/좌석 선택
+          </div>
+        </button>
+      </div>
     </div>
   );
 };

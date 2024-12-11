@@ -1,23 +1,27 @@
 import "./Special.css";
 import { useState, useEffect, useRef } from "react";
+import IMAXimg from "../assets/special/IMAX.jpg";
+import DXimg from "../assets/special/4DX.jpg";
+import SCREENXimg from "../assets/special/SCREENX.jpg";
+import CINEimg from "../assets/special/CINE & LIVINGROOM.jpg";
 
 const Special = () => {
   const speciallist = [
-    { title: "IMAX", info: "# 궁극의 몰입감", url: "/assets/special/IMAX.jpg" },
+    { title: "IMAX", info: "# 궁극의 몰입감", url: IMAXimg },
     {
       title: "4DX",
       info: "# 모션 시트 # 오감 체험",
-      url: "/assets/special/4DX.jpg",
+      url: DXimg,
     },
     {
       title: "SCREENX",
       info: "# 3면 확장 스크린",
-      url: "/assets/special/SCREENX.jpg",
+      url: SCREENXimg,
     },
     {
       title: "CINE & LIVINGROOM",
       info: "# 신개념 소셜 상영관",
-      url: "/assets/special/CINE & LIVINGROOM.jpg",
+      url: CINEimg,
     },
   ];
 

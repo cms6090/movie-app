@@ -1,37 +1,13 @@
 import "./Special.css";
-import { useState, useEffect, useRef } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebaseinit";
+import { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Special = () => {
-  const [speciallist, setSpeciallist] = useState([]);
+  const speciallist = useSelector((state) => state.theater.list); // Redux 상태에서 데이터 가져오기
   const [hoverIndex, setHoverIndex] = useState(0);
   const [listHeight, setListHeight] = useState(0);
   const listRef = useRef(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "theater"));
-        const data = querySnapshot.docs.map((doc) => {
-          const docData = doc.data();
-          return {
-            id: doc.id,
-            ...docData,
-            theater_url: docData.theater_url, // Firestore에서 받은 경로 그대로 사용
-          };
-        });
-        setSpeciallist(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // listHeight 업데이트
   useEffect(() => {
     if (listRef.current) {
       setListHeight(listRef.current.offsetHeight);
@@ -81,7 +57,7 @@ const Special = () => {
               key={item.id}
               className={`special-contents ${
                 hoverIndex === index ? "selected" : ""
-              }`} // Add selected class when hoverIndex matches
+              }`}
               onMouseEnter={() => handleMouseEnter(index)}
             >
               <div className="special-content">

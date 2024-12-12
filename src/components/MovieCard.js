@@ -3,9 +3,8 @@ import "swiper/css"; // Swiper 기본 CSS 가져오기
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import "./MovieCard.css";
-
-const arrowLeft = "/assets/img/Arrowleft.svg";
-const arrowRight = "/assets/img/Arrowright.svg";
+import arrowLeft from "../assets/img/Arrowleft.svg";
+import arrowRight from "../assets/img/Arrowright.svg";
 
 const MovieCard = () => {
   const movies = [

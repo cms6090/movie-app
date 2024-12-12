@@ -78,3 +78,7 @@
   justify-content: center;
   cursor: pointer;
 }
+
+.video-contents {
+  width: 60%;
+}

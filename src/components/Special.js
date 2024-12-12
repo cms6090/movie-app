@@ -1,34 +1,37 @@
 import "./Special.css";
 import { useState, useEffect, useRef } from "react";
-import IMAXimg from "../assets/special/IMAX.jpg";
-import DXimg from "../assets/special/4DX.jpg";
-import SCREENXimg from "../assets/special/SCREENX.jpg";
-import CINEimg from "../assets/special/CINE & LIVINGROOM.jpg";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebaseinit";
 
 const Special = () => {
-  const speciallist = [
-    { title: "IMAX", info: "# 궁극의 몰입감", url: IMAXimg },
-    {
-      title: "4DX",
-      info: "# 모션 시트 # 오감 체험",
-      url: DXimg,
-    },
-    {
-      title: "SCREENX",
-      info: "# 3면 확장 스크린",
-      url: SCREENXimg,
-    },
-    {
-      title: "CINE & LIVINGROOM",
-      info: "# 신개념 소셜 상영관",
-      url: CINEimg,
-    },
-  ];
-
+  const [speciallist, setSpeciallist] = useState([]);
   const [hoverIndex, setHoverIndex] = useState(0);
   const [listHeight, setListHeight] = useState(0);
   const listRef = useRef(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "theater"));
+        const data = querySnapshot.docs.map((doc) => {
+          const docData = doc.data();
+          return {
+            id: doc.id,
+            ...docData,
+            theater_url: docData.theater_url, // Firestore에서 받은 경로 그대로 사용
+          };
+        });
+        setSpeciallist(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // listHeight 업데이트
   useEffect(() => {
     if (listRef.current) {
       setListHeight(listRef.current.offsetHeight);
@@ -53,11 +56,11 @@ const Special = () => {
           className="special-image-container"
           style={{ height: `${listHeight}px` }}
         >
-          {hoverIndex !== null && (
+          {hoverIndex !== null && speciallist[hoverIndex] && (
             <div style={{ height: "100%" }}>
               <img
-                src={speciallist[hoverIndex].url}
-                alt={speciallist[hoverIndex].title}
+                src={speciallist[hoverIndex].theater_url}
+                alt={speciallist[hoverIndex].theater_title}
                 style={{
                   width: "100%",
                   height: "100%",
@@ -65,8 +68,8 @@ const Special = () => {
                 }}
               />
               <div className="special-image-info">
-                <h2>{speciallist[hoverIndex].title}</h2>
-                <h4>{speciallist[hoverIndex].info}</h4>
+                <h2>{speciallist[hoverIndex].theater_title}</h2>
+                <h4>{speciallist[hoverIndex].theater_info}</h4>
               </div>
             </div>
           )}
@@ -75,15 +78,17 @@ const Special = () => {
         <ul className="special-list" ref={listRef}>
           {speciallist.map((item, index) => (
             <li
-              key={index}
+              key={item.id}
               className={`special-contents ${
                 hoverIndex === index ? "selected" : ""
               }`} // Add selected class when hoverIndex matches
               onMouseEnter={() => handleMouseEnter(index)}
             >
               <div className="special-content">
-                <div className="special-content-title">{item.title}</div>
-                <div className="special-contents-info">{item.info}</div>
+                <div className="special-content-title">
+                  {item.theater_title}
+                </div>
+                <div className="special-contents-info">{item.theater_info}</div>
               </div>
             </li>
           ))}

@@ -2,35 +2,30 @@
   margin: 1em 20%;
 }
 
-/* 탭 컨테이너 */
 .tabs {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   border: 1px solid black;
 }
 
-/* 탭 버튼 */
 .tab-button {
   padding: 10px;
   text-align: center;
   cursor: pointer;
 }
 
-/* 활성화된 탭의 스타일 */
 .tab-button.active {
-  background-color: #e63946; /* 클릭된 탭의 배경색 */
-  color: white; /* 클릭된 탭의 텍스트 색상 */
+  background-color: #e63946;
+  color: white;
 }
 
-/* 기본 탭의 텍스트 색상 */
 .tab-button:not(.active) {
   color: black;
 }
 
-/* 탭 내용 */
 .tab-content {
   padding: 10px;
-  background-color: #f1faee; /* 내용의 배경색 */
+  background-color: #f1faee; 
 }
 
 .leave-container {
@@ -68,4 +63,8 @@
   padding: 0.5em 1em;
   border: none;
   border-radius: 10px;
+}
+
+.leave-check:hover {
+  cursor: pointer;
 }

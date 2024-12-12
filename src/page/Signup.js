@@ -50,8 +50,12 @@ const Signup = () => {
         alert("회원가입에 성공하였습니다.");
         navigate("/");
       } catch (error) {
-        alert("회원가입 중 오류가 발생했습니다. 다시 시도하세요.");
-        console.error(error);
+        console.error("회원가입 에러:", error);
+        if (error.code === "auth/email-already-in-use") {
+          setErrors({ ...errors, email: "이미 사용 중인 이메일 주소입니다." });
+        } else {
+          alert("회원가입 중 오류가 발생했습니다. 다시 시도하세요.");
+        }
       }
     }
   };

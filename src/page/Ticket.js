@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import "./Ticket.css";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-const theaters = ["일반", "IMAX", "4DX", "SCREENX", "CINE & LIVINGROOM"];
 const movies = [
   {
     id: "1",
@@ -108,6 +108,7 @@ const Ticket = ({ user }) => {
   const [movie, setMovie] = useState("영화 선택");
   const [date, setDate] = useState(dates[0].formattedDate);
   const [time, setTime] = useState("시간 선택");
+  const theaters = useSelector((state) => state.theater.list); // Redux 상태에서 데이터 가져오기
 
   useEffect(() => {
     const selectedMovie = movies.find((movie) => movie.id === id);
@@ -166,17 +167,17 @@ const Ticket = ({ user }) => {
         <div className="theater-section">
           <h3 className="section-title">{theater}</h3>
           <ul className="theater-list">
-            {theaters.map((theaterName, index) => (
+            {theaters.map(({ id, theater_title }) => (
               <li
-                key={index}
+                key={id}
                 className="li-list"
-                onClick={() => handleTheaterClick(theaterName)}
+                onClick={() => handleTheaterClick(theater_title)} // 제목으로 업데이트
                 style={{
-                  border: theater === theaterName ? "2px solid #000" : "none",
+                  border: theater === theater_title ? "2px solid #000" : "none",
                 }}
               >
-                {theaterName}
-                {theater === theaterName && (
+                {theater_title}
+                {theater === theater_title && (
                   <span style={{ color: "red", fontWeight: "bold" }}>✔</span>
                 )}
               </li>

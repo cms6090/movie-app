@@ -5,7 +5,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebaseinit";
 
 function Header() {
-  const [user, setUser] = useState(null); // 로그인 상태 저장
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,7 +13,7 @@ function Header() {
       setUser(currentUser);
     });
 
-    return () => unsubscribe(); // 컴포넌트 언마운트 시 구독 해제
+    return () => unsubscribe();
   }, [auth]);
 
   const handleLogout = async () => {
@@ -67,7 +67,6 @@ function Header() {
             </div>
           </>
         ) : (
-          // 로그아웃 상태
           <>
             <Link to="/login">
               <div className="header-contents">

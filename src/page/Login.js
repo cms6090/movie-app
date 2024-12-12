@@ -42,9 +42,8 @@ export default function Login() {
       alert("로그인에 성공하였습니다.");
       navigate("/");
     } catch (error) {
-      console.error("로그인 에러:", error); // 전체 에러를 콘솔에 출력
+      console.error("로그인 에러:", error);
 
-      // Firebase 에러 코드 처리
       switch (error.code) {
         case "auth/user-not-found":
           newErrors.general = "해당 이메일로 가입된 사용자가 없습니다.";
@@ -68,7 +67,7 @@ export default function Login() {
           break;
       }
 
-      setErrors(newErrors); // 에러 상태 업데이트
+      setErrors(newErrors);
     }
   };
 

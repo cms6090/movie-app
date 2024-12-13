@@ -207,7 +207,7 @@ const Ticket = () => {
             {theater !== "영화관" && movie !== "영화 선택" && date ? (
               loading ? (
                 <div>
-                  <CircularProgress style={{ marginTop: "250px" }} />
+                  <CircularProgress style={{ marginTop: "225px" }} />
                 </div>
               ) : (
                 times.map((timeitem) =>

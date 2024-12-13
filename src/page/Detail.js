@@ -2,12 +2,17 @@ import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Detail.css";
 import YouTube from "react-youtube";
+import { useEffect } from "react";
 
 const Detail = () => {
   const { id } = useParams();
   // Redux에서 영화 데이터를 가져오기
   const movies = useSelector((state) => state.movie.list);
   const movie = movies.find((movie) => movie.id === id);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="detail-container">

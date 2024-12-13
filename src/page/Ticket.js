@@ -2,6 +2,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./Ticket.css";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebaseinit";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const times = ["06:30", "09:00", "11:30", "14:00", "16:30", "19:00", "21:30"];
 
@@ -20,7 +23,7 @@ const getNextDays = (numDays) => {
     const weekday = weekdays[date.getDay()];
 
     days.push({
-      formattedDate: `${year}-${month}-${day}(${weekday})`, // 변경된 형식
+      formattedDate: `${year}-${month}-${day}(${weekday})`,
       day: weekday,
     });
   }
@@ -36,9 +39,11 @@ const Ticket = () => {
   const [theater, setTheater] = useState("영화관");
   const [movie, setMovie] = useState("영화 선택");
   const [date, setDate] = useState(dates[0].formattedDate);
+  const [timeSeats, setTimeSeats] = useState({});
   const [time, setTime] = useState("시간 선택");
+  const [loading, setLoading] = useState(false);
 
-  const theaters = useSelector((state) => state.theater.list); 
+  const theaters = useSelector((state) => state.theater.list);
   const movies = useSelector((state) => state.movie.list);
 
   useEffect(() => {
@@ -48,16 +53,54 @@ const Ticket = () => {
     }
   }, [id, movies]);
 
+  // Firestore에서 각 시간별 잔여석 데이터 가져오기
+  useEffect(() => {
+    const fetchTimeSeats = async () => {
+      if (theater !== "영화관" && movie !== "영화 선택" && date) {
+        setLoading(true);
+        const newTimeSeats = {};
+
+        for (const time of times) {
+          const scheduleId = `${theater}_${movie}_${date}_${time}`;
+          const scheduleRef = doc(db, "schedules", scheduleId);
+
+          try {
+            const snapshot = await getDoc(scheduleRef);
+            if (snapshot.exists()) {
+              const seats = snapshot.data().seats || {};
+              newTimeSeats[time] = Object.values(seats).filter(
+                (status) => status === "available"
+              ).length;
+            } else {
+              newTimeSeats[time] = 128; // 기본 좌석 수
+            }
+          } catch (error) {
+            console.error(`Error fetching schedule for ${time}:`, error);
+            newTimeSeats[time] = null; // 오류 시 데이터 없음으로 표시
+          }
+        }
+
+        setTimeSeats(newTimeSeats);
+        setLoading(false);
+      }
+    };
+
+    fetchTimeSeats();
+  }, [theater, movie, date]);
+
   const handleTheaterClick = (selectedTheater) => {
     setTheater(selectedTheater);
+    setTimeSeats({});
   };
 
   const handleMovieClick = (selectedMovie) => {
     setMovie(selectedMovie);
+    setTimeSeats({});
   };
 
   const handleDateClick = (formattedDate) => {
     setDate(formattedDate);
+    setTimeSeats({});
   };
 
   const handleTimeClick = (selectedTime) => {
@@ -161,21 +204,53 @@ const Ticket = () => {
         <div className="time-section">
           <h3 className="section-title">{time}</h3>
           <div className="time-selector">
-            {times.map((timeitem) => (
-              <div
-                key={timeitem}
-                onClick={() => handleTimeClick(timeitem)}
-                className="li-list"
-                style={{
-                  justifyContent: "space-around",
-                  border: time === timeitem ? "2px solid #000" : "none",
-                  color: time === timeitem ? "#000" : "#aaa",
-                }}
-              >
-                <div>{timeitem}</div>
-                <div>잔여석</div>
-              </div>
-            ))}
+            {theater !== "영화관" && movie !== "영화 선택" && date ? (
+              loading ? (
+                <div>
+                  <CircularProgress style={{ marginTop: "250px" }} />
+                </div>
+              ) : (
+                times.map((timeitem) =>
+                  timeSeats[timeitem] !== undefined ? (
+                    <div
+                      key={timeitem}
+                      onClick={() => handleTimeClick(timeitem)}
+                      className="li-list"
+                      style={{
+                        justifyContent: "space-around",
+                        fontWeight: timeitem === time ? "bold" : "normal",
+                        color: timeitem === time ? "#000" : "#aaa",
+                        border: timeitem === time ? "2px solid #000" : "none",
+                      }}
+                    >
+                      <div>{timeitem}</div>
+                      <div
+                        style={{
+                          fontSize: "0.8em",
+                          background: "rgba(0,0,0,0.1)",
+                          borderRadius: "10px",
+                          padding: "0.2em 0.5em",
+                        }}
+                      >
+                        잔여석: {timeSeats[timeitem]}
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      key={timeitem}
+                      className="li-list"
+                      style={{
+                        justifyContent: "space-around",
+                        border: "1px solid #ccc",
+                        color: "#aaa",
+                      }}
+                    >
+                      <div></div>
+                    </div>
+                  )
+                )
+              )
+            ) : null}
           </div>
         </div>
       </div>

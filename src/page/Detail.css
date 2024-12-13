@@ -7,7 +7,7 @@
 .detail-header {
   display: flex;
   gap: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 1em;
 }
 
 .detail-poster {
@@ -33,4 +33,8 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.detail-content {
+  margin: 1em 0;
 }

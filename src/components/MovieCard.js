@@ -1,92 +1,14 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css"; // Swiper 기본 CSS 가져오기
+import "swiper/css";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import "./MovieCard.css";
 import arrowLeft from "../assets/img/Arrowleft.svg";
 import arrowRight from "../assets/img/Arrowright.svg";
+import { useSelector } from "react-redux";
 
 const MovieCard = () => {
-  const movies = [
-    {
-      id: "1",
-      title: "모아나2",
-      en_title: "MOANA2",
-      releaseDate: "2024-01-01",
-      image:
-        "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88381/88381_320.jpg",
-    },
-    {
-      id: "2",
-      title: "소방관",
-      en_title: "FIREFIGHTERS",
-      releaseDate: "2024-02-15",
-      image:
-        "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88992/88992_320.jpg",
-    },
-    {
-      id: "3",
-      title: "1승",
-      releaseDate: "2024-03-10",
-      image:
-        "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89075/89075_320.jpg",
-    },
-    {
-      id: "4",
-      title: "위키드",
-      en_title: "Wicked",
-      releaseDate: "2024-04-15",
-      image:
-        "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88076/88076_320.jpg",
-    },
-    {
-      id: "5",
-      title: "플레이브 팬 콘서트",
-      releaseDate: "2024-01-01",
-      image:
-        "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89287/89287_320.jpg",
-    },
-    {
-      id: "6",
-      title: "히든 페이스",
-      en_title: "HIDDEN FACE",
-      releaseDate: "2024-02-15",
-      image:
-        "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88920/88920_320.jpg",
-    },
-    {
-      id: "7",
-      title: "더 크로우",
-      en_title: "The Crow",
-      releaseDate: "2024-03-10",
-      image:
-        "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89310/89310_320.jpg",
-    },
-    {
-      id: "8",
-      title: "원정빌라",
-      releaseDate: "2024-04-15",
-      image:
-        "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89097/89097_320.jpg",
-    },
-    {
-      id: "9",
-      title: "엔시티 드림 미스터리 랩: 드림 이스케이프 인 시네마",
-      en_title: "NCT DREAM Mystery Lab: DREAM( )SCAPE in Cinemas",
-      releaseDate: "2024-04-15",
-      image:
-        "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89295/89295_320.jpg",
-    },
-    {
-      id: "10",
-      title: "인터스텔라",
-      en_title: "Interstellar",
-      releaseDate: "2024-04-15",
-      image:
-        "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000077/77372/77372_320.jpg",
-    },
-  ];
-
+  const movies = useSelector((state) => state.movie.list);
   const swiperRef = useRef(null);
 
   const handleSlideChange = (direction) => {
@@ -123,7 +45,7 @@ const MovieCard = () => {
               <div className="movie-card-wrap">
                 <div>
                   <img
-                    src={movie.image}
+                    src={movie.poster}
                     alt={movie.title}
                     className="movie-image"
                   />

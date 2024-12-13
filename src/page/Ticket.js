@@ -3,78 +3,6 @@ import "./Ticket.css";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const movies = [
-  {
-    id: "1",
-    title: "모아나2",
-    en_title: "MOANA2",
-    releaseDate: "2024-01-01",
-    image:
-      "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88381/88381_320.jpg",
-  },
-  {
-    id: "2",
-    title: "소방관",
-    en_title: "FIREFIGHTERS",
-    releaseDate: "2024-02-15",
-    image:
-      "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88992/88992_320.jpg",
-  },
-  {
-    id: "3",
-    title: "1승",
-    releaseDate: "2024-03-10",
-    image:
-      "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89075/89075_320.jpg",
-  },
-  {
-    id: "4",
-    title: "위키드",
-    en_title: "Wicked",
-    releaseDate: "2024-04-15",
-    image:
-      "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88076/88076_320.jpg",
-  },
-  {
-    id: "5",
-    title: "플레이브 팬 콘서트",
-    releaseDate: "2024-01-01",
-    image:
-      "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89287/89287_320.jpg",
-  },
-  {
-    id: "6",
-    title: "히든 페이스",
-    en_title: "HIDDEN FACE",
-    releaseDate: "2024-02-15",
-    image:
-      "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000088/88920/88920_320.jpg",
-  },
-  {
-    id: "7",
-    title: "더 크로우",
-    en_title: "The Crow",
-    releaseDate: "2024-03-10",
-    image:
-      "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89310/89310_320.jpg",
-  },
-  {
-    id: "8",
-    title: "원정빌라",
-    releaseDate: "2024-04-15",
-    image:
-      "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000089/89097/89097_320.jpg",
-  },
-  {
-    id: "10",
-    title: "인터스텔라",
-    en_title: "Interstellar",
-    releaseDate: "2024-04-15",
-    image:
-      "https://img.cgv.co.kr/Movie/Thumbnail/Poster/000077/77372/77372_320.jpg",
-  },
-];
-
 const times = ["06:30", "09:00", "11:30", "14:00", "16:30", "19:00", "21:30"];
 
 const getNextDays = (numDays) => {
@@ -100,22 +28,25 @@ const getNextDays = (numDays) => {
   return days;
 };
 
-const Ticket = ({ user }) => {
+const Ticket = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [dates, setDates] = useState(getNextDays(21));
   const [theater, setTheater] = useState("영화관");
   const [movie, setMovie] = useState("영화 선택");
   const [date, setDate] = useState(dates[0].formattedDate);
   const [time, setTime] = useState("시간 선택");
-  const theaters = useSelector((state) => state.theater.list); // Redux 상태에서 데이터 가져오기
+
+  const theaters = useSelector((state) => state.theater.list); 
+  const movies = useSelector((state) => state.movie.list);
 
   useEffect(() => {
     const selectedMovie = movies.find((movie) => movie.id === id);
     if (selectedMovie) {
       setMovie(selectedMovie.title);
     }
-  }, [id]);
+  }, [id, movies]);
 
   const handleTheaterClick = (selectedTheater) => {
     setTheater(selectedTheater);
@@ -171,7 +102,7 @@ const Ticket = ({ user }) => {
               <li
                 key={id}
                 className="li-list"
-                onClick={() => handleTheaterClick(theater_title)} // 제목으로 업데이트
+                onClick={() => handleTheaterClick(theater_title)}
                 style={{
                   border: theater === theater_title ? "2px solid #000" : "none",
                 }}

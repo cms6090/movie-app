@@ -38,8 +38,8 @@ const Ticket = () => {
   const [date, setDate] = useState(dates[0].formattedDate);
   const [time, setTime] = useState("시간 선택");
 
-  const theaters = useSelector((state) => state.theater.list); // Redux에서 영화관 데이터 가져오기
-  const movies = useSelector((state) => state.movie.list); // Redux에서 영화 데이터 가져오기
+  const theaters = useSelector((state) => state.theater.list); 
+  const movies = useSelector((state) => state.movie.list);
 
   useEffect(() => {
     const selectedMovie = movies.find((movie) => movie.id === id);

@@ -48,7 +48,8 @@
   margin: 0;
 }
 
-.date-selector {
+.date-selector,
+.movie-list {
   overflow-y: scroll;
   height: 500px;
 }

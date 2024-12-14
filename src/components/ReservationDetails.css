@@ -1,0 +1,22 @@
+.reserve-items {
+  display: flex;
+  gap: 2em;
+}
+
+.reserve-item {
+  display: flex;
+  gap: 2em;
+}
+
+.reserve-item-item div {
+  margin: 0.5em 0;
+}
+
+.reserve-item-title {
+  font-weight: bold;
+}
+
+.reserve-item-txt {
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.7);
+}

@@ -3,6 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import { db } from "../firebaseinit";
 import { useSelector } from "react-redux";
+import "./ReservationDetails.css";
 
 const ReservationDetails = () => {
   const [reservations, setReservations] = useState([]); // 예약 내역 상태
@@ -49,6 +50,24 @@ const ReservationDetails = () => {
     fetchReservations();
   }, [movies]);
 
+  const formatAmount = (amount) => {
+    return amount.toLocaleString("ko-KR"); // 1,000 단위로 쉼표 추가
+  };
+
+  const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+    const period = hours >= 12 ? "오후" : "오전";
+    const formattedHours = hours % 12 || 12; // 12시간 형식으로 변환
+
+    return `${year}-${month}-${day} ${period} ${formattedHours}:${minutes}:${seconds}`;
+  };
+
   if (loading) {
     return <div>예약 내역을 불러오는 중...</div>;
   }
@@ -58,43 +77,67 @@ const ReservationDetails = () => {
   }
 
   if (reservations.length === 0) {
-    return <div>예약 내역이 없습니다.</div>;
+    return (
+      <div className="tab-content" style={{ color: "red" }}>
+        예약 내역이 없습니다.
+      </div>
+    );
   }
+
+  console.log(reservations);
 
   return (
     <div className="tab-content">
-      <table className="reservations-table">
-        <thead>
-          <tr>
-            <th>포스터</th>
-            <th>영화관</th>
-            <th>영화</th>
-            <th>날짜</th>
-            <th>시간</th>
-            <th>좌석</th>
-            <th>총 금액</th>
-          </tr>
-        </thead>
-        <tbody>
-          {reservations.map((res) => (
-            <tr key={res.id}>
-              <td>
-                <img
-                  src={res.poster}
-                  alt={res.movie}
-                  style={{ width: "60px", height: "90px" }}
-                />
-              </td>
-              <td>{res.theater}</td>
-              <td>{res.movie}</td>
-              <td>{res.date}</td>
-              <td>{res.time}</td>
-              <td>{res.seats.join(", ")}</td>
-              <td>{res.totalAmount}원</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {reservations.map((res) => (
+        <div key={res.id} className="reserve-items">
+          <div>
+            <img
+              src={res.poster}
+              alt={res.movie}
+              style={{ height: "14em", borderRadius: "10px" }}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+            }}
+          >
+            <div style={{ fontSize: "1.2em" }}>{res.movie}</div>
+            <div className="reserve-item">
+              <div className="reserve-item-item reserve-item-title">
+                <div>상영관 </div>
+                <div>상영일시</div>
+                <div>관람인원</div>
+                <div>좌석</div>
+                <div>금액</div>
+                <div>예약시간</div>
+              </div>
+              <div className="reserve-item-item reserve-item-txt">
+                <div> {res.theater}</div>
+                <div>
+                  {res.date}
+                  <span
+                    style={{
+                      marginLeft: "1em",
+                      borderLeft: "2px solid rgba(0,0,0,0.3)",
+                      paddingLeft: "1em",
+                      color: "rgba(0,0,0,0.6)",
+                    }}
+                  >
+                    {res.time}
+                  </span>
+                </div>
+                <div>{res.peopleNum}</div>
+                <div>{res.seats.join(", ")}</div>
+                <div>{formatAmount(res.totalAmount)}원</div>
+                <div>{formatTimestamp(res.timestamp)}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

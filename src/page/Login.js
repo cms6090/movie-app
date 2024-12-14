@@ -78,7 +78,6 @@ export default function Login() {
       provider.setCustomParameters({ prompt: "select_account" });
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      alert(`구글 로그인 성공: ${user.displayName}`);
       navigate("/");
     } catch (error) {
       console.error("구글 로그인 에러:", error);

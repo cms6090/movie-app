@@ -70,7 +70,6 @@ function App() {
                 <Route path=":id" element={<Ticket />} />
               </Route>
               <Route path="/query" element={<Query />} />
-              {/* 보호된 경로 */}
               <Route
                 path="/seats"
                 element={

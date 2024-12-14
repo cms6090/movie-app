@@ -1,12 +1,20 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Seats.css";
 import { useState, useEffect } from "react";
-import { doc, getDoc, setDoc, updateDoc, onSnapshot } from "firebase/firestore";
-import { db } from "../firebaseinit";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  onSnapshot,
+  collection,
+  addDoc,
+} from "firebase/firestore";
+import { db, auth } from "../firebaseinit";
 
 const Seats = () => {
   const location = useLocation();
-  const { theater, movie, date, time } = location.state || {};
+  const { theater, price, movie, date, time } = location.state || {};
   const navigate = useNavigate();
 
   const [peopleNum, setPeopleNum] = useState(0);
@@ -19,6 +27,9 @@ const Seats = () => {
 
   const scheduleId = `${theater}_${movie}_${date}_${time}`; // 고유 스케줄 ID 생성
   const scheduleRef = doc(db, "schedules", scheduleId);
+
+  const user = auth.currentUser; // 현재 로그인된 사용자 정보
+  const userId = user ? user.uid : null; // 로그인된 사용자 UID
 
   // Firestore에서 좌석 데이터 가져오기 및 초기화
   useEffect(() => {
@@ -78,16 +89,43 @@ const Seats = () => {
   };
 
   const handleConfirmSeats = async () => {
+    if (!userId) {
+      alert("로그인이 필요합니다.");
+      navigate("/login"); // 로그인 페이지로 이동
+      return;
+    }
+
     const updatedSeats = { ...seatStatus };
     selectedSeats.forEach((seat) => {
       updatedSeats[seat] = "reserved";
     });
 
-    await updateDoc(scheduleRef, { seats: updatedSeats });
+    try {
+      // 좌석 상태 업데이트
+      await updateDoc(scheduleRef, { seats: updatedSeats });
 
-    alert(`좌석 예약 완료: ${selectedSeats.join(", ")}`);
-    setSelectedSeats([]);
-    navigate("/");
+      // 예약 데이터 Firestore에 저장
+      const totalAmount = price * peopleNum;
+      const reservationData = {
+        userId,
+        theater,
+        movie,
+        date,
+        time,
+        seats: selectedSeats,
+        totalAmount,
+        timestamp: new Date().toISOString(), // 예약 생성 시간
+      };
+
+      await addDoc(collection(db, "reserve"), reservationData);
+
+      alert(`좌석 예약 완료: ${selectedSeats.join(", ")}`);
+      setSelectedSeats([]);
+      navigate("/");
+    } catch (error) {
+      console.error("예약 중 오류 발생:", error);
+      alert("예약에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
@@ -121,9 +159,9 @@ const Seats = () => {
         </div>
         <div className="seat-sections seat-movie-info">
           <div>영화관: {theater}</div>
-          <div style={{ textAlign: "right" }}>영화: {movie}</div>
+          <div>영화: {movie}</div>
           <div>날짜: {date}</div>
-          <div style={{ textAlign: "right" }}>시간: {time}</div>
+          <div>시간: {time}</div>
         </div>
       </div>
       <div className="seat-sections">
@@ -181,7 +219,30 @@ const Seats = () => {
           </div>
         </div>
       </div>
-      <div style={{ textAlign: "center", marginTop: "2em" }}>
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "2em",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <div
+          style={{
+            border: "1px solid rgba(0,0,0,0.2)",
+            borderRadius: "10px",
+            display: "flex",
+            alignItems: "center",
+            padding: "10px 20px",
+          }}
+        >
+          금액 : {price} X {peopleNum} =
+          <span
+            style={{ color: "red", fontWeight: "bold", marginLeft: "0.2em" }}
+          >
+            {price * peopleNum}
+          </span>
+        </div>
         <button
           onClick={handleConfirmSeats}
           disabled={selectedSeats.length !== peopleNum || peopleNum === 0}

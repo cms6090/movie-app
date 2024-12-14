@@ -1,8 +1,8 @@
-import "./Special.css";
+import "./Theater.css";
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const Special = () => {
+const Theater = () => {
   const speciallist = useSelector((state) => state.theater.list); // Redux 상태에서 데이터 가져오기
   const [hoverIndex, setHoverIndex] = useState(0);
   const [listHeight, setListHeight] = useState(0);
@@ -74,4 +74,4 @@ const Special = () => {
   );
 };
 
-export default Special;
+export default Theater;

@@ -46,6 +46,9 @@ const Ticket = () => {
   const theaters = useSelector((state) => state.theater.list);
   const movies = useSelector((state) => state.movie.list);
 
+  const selectedTheater = theaters.find((t) => t.theater_title === theater);
+  const price = selectedTheater ? selectedTheater.theater_price : 0; 
+
   useEffect(() => {
     const selectedMovie = movies.find((movie) => movie.id === id);
     if (selectedMovie) {
@@ -119,6 +122,7 @@ const Ticket = () => {
       navigate("/seats", {
         state: {
           theater,
+          price,
           movie,
           date,
           time,
@@ -207,7 +211,7 @@ const Ticket = () => {
             {theater !== "영화관" && movie !== "영화 선택" && date ? (
               loading ? (
                 <div>
-                  <CircularProgress style={{ marginTop: "250px" }} />
+                  <CircularProgress style={{ marginTop: "225px" }} />
                 </div>
               ) : (
                 times.map((timeitem) =>

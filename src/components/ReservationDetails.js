@@ -39,6 +39,17 @@ const ReservationDetails = () => {
           };
         });
 
+        // 상영시간 기준으로 정렬
+        reservationsData.sort((a, b) => {
+          const cleanDateA = a.date.replace(/\(.+\)/, "");
+          const cleanDateB = b.date.replace(/\(.+\)/, "");
+
+          const dateTimeA = `${cleanDateA}T${a.time}`;
+          const dateTimeB = `${cleanDateB}T${b.time}`;
+
+          return new Date(dateTimeA) - new Date(dateTimeB);
+        });
+
         setReservations(reservationsData);
       } catch (err) {
         setError("예약 내역을 불러오는 데 실패했습니다.");

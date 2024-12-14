@@ -1,6 +1,18 @@
 .reserve-items {
   display: flex;
+  margin: 1em 0;
   gap: 2em;
+  padding: 0.5em;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+
+.reserve-items:first-child {
+  margin-top: 0;
+}
+
+.reserve-item:last-child {
+  margin-bottom: 0;
 }
 
 .reserve-item {

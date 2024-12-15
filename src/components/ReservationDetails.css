@@ -1,0 +1,42 @@
+.reserve-items {
+  display: flex;
+  margin: 1em 0;
+  gap: 2em;
+  padding: 0.5em;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+
+.reserve-items:first-child {
+  margin-top: 0;
+}
+
+.reserve-item:last-child {
+  margin-bottom: 0;
+}
+
+.reserve-item {
+  display: flex;
+  gap: 2em;
+}
+
+.reserve-item-item div {
+  margin: 0.5em 0;
+}
+
+.reserve-item-title {
+  font-weight: bold;
+}
+
+.reserve-item-txt {
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.cancel-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-right: 0.5em;
+}

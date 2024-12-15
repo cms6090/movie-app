@@ -31,6 +31,10 @@ const Seats = () => {
   const user = auth.currentUser; // 현재 로그인된 사용자 정보
   const userId = user ? user.uid : null; // 로그인된 사용자 UID
 
+  const formatAmount = (amount) => {
+    return amount.toLocaleString("ko-KR"); // 1,000 단위로 쉼표 추가
+  };
+
   // Firestore에서 좌석 데이터 가져오기 및 초기화
   useEffect(() => {
     const fetchSeatStatus = async () => {
@@ -91,7 +95,7 @@ const Seats = () => {
   const handleConfirmSeats = async () => {
     if (!userId) {
       alert("로그인이 필요합니다.");
-      navigate("/login"); // 로그인 페이지로 이동
+      navigate("/login"); 
       return;
     }
 
@@ -114,6 +118,7 @@ const Seats = () => {
         time,
         seats: selectedSeats,
         totalAmount,
+        peopleNum,
         timestamp: new Date().toISOString(), // 예약 생성 시간
       };
 
@@ -236,11 +241,11 @@ const Seats = () => {
             padding: "10px 20px",
           }}
         >
-          금액 : {price} X {peopleNum} =
+          금액 : {formatAmount(price)}원 X {peopleNum} =
           <span
             style={{ color: "red", fontWeight: "bold", marginLeft: "0.2em" }}
           >
-            {price * peopleNum}
+            {formatAmount(price * peopleNum)}원
           </span>
         </div>
         <button

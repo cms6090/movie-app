@@ -5,14 +5,14 @@
 .movies-card-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 15px;
+  gap: 2em;
   align-items: stretch;
 }
 
 .movies-movie-card {
   text-align: center;
   overflow: hidden;
-  margin-bottom: 5em;
+  margin-bottom: 2em;
 }
 
 .movies-movie-card-image {

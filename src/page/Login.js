@@ -54,14 +54,6 @@ export default function Login() {
         case "auth/invalid-email":
           newErrors.general = "유효하지 않은 이메일 주소입니다.";
           break;
-        case "auth/invalid-credential":
-          newErrors.general =
-            "잘못된 자격 증명입니다. 이메일 또는 비밀번호를 확인하세요.";
-          break;
-        case "auth/too-many-requests":
-          newErrors.general =
-            "잠시 후 다시 시도해주세요. 너무 많은 로그인 시도가 감지되었습니다.";
-          break;
         default:
           newErrors.general = "로그인에 실패하였습니다. 다시 시도해주세요.";
           break;
@@ -78,7 +70,6 @@ export default function Login() {
       provider.setCustomParameters({ prompt: "select_account" });
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      alert(`구글 로그인 성공: ${user.displayName}`);
       navigate("/");
     } catch (error) {
       console.error("구글 로그인 에러:", error);

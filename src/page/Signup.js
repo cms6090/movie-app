@@ -86,7 +86,7 @@ const Signup = () => {
         </div>
         <div className="password">
           <label htmlFor="password">
-            비밀번호<span style={{ color: "red" }}>*</span>
+            비밀번호<span style={{ color: "red" }}>*(비밀번호는 6자 이상이어야 합니다.)</span>
           </label>
           <input
             type="password"

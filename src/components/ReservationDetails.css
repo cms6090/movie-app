@@ -32,3 +32,11 @@
   font-weight: 300;
   color: rgba(0, 0, 0, 0.7);
 }
+
+.cancel-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-right: 0.5em;
+}

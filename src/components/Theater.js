@@ -20,7 +20,7 @@ const Theater = () => {
 
   return (
     <div style={{ margin: "3em 0" }}>
-      <h2>특별관</h2>
+      <h2>상영관</h2>
       <div
         style={{
           display: "grid",

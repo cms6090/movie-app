@@ -6,7 +6,6 @@ import { useEffect } from "react";
 
 const Detail = () => {
   const { id } = useParams();
-  // Redux에서 영화 데이터를 가져오기
   const movies = useSelector((state) => state.movie.list);
   const movie = movies.find((movie) => movie.id === id);
 
@@ -20,7 +19,7 @@ const Detail = () => {
         <>
           <div className="detail-header">
             <img
-              src={movie.poster} // Firestore 데이터에서 poster 필드 사용
+              src={movie.poster} 
               alt={movie.title}
               className="detail-poster"
             />

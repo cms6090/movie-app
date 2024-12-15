@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../firebaseinit";
 
 const Withdrawal = () => {
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -20,7 +21,6 @@ const Withdrawal = () => {
   };
 
   const handleWithdrawal = async () => {
-    const auth = getAuth();
     const user = auth.currentUser;
 
     if (!user) {

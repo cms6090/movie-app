@@ -31,7 +31,7 @@ function Header() {
     <header className="header">
       <div className="logo">
         <Link to="/">
-          <p>로고</p>
+          <div className="logo-fonts">FilmFactory</div>
         </Link>
       </div>
       <div className="other">
@@ -54,7 +54,7 @@ function Header() {
             <Link to="/mypage">
               <div className="header-contents">
                 <span className="material-symbols-outlined">person</span>
-                <span>MY 로고</span>
+                <span>My Film</span>
               </div>
             </Link>
             <div

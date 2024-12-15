@@ -7,12 +7,10 @@ const Query = () => {
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get("search") || "";
 
-  // Redux 상태에서 movies 가져오기
-  const movies = useSelector((state) => state.movie.list); // Redux에서 영화 데이터 가져오기
+  const movies = useSelector((state) => state.movie.list); 
 
   const removeSpaces = (str) => str.replace(/\s+/g, "").toLowerCase();
 
-  // 검색 결과 필터링
   const filteredMovies = movies.filter(
     (movie) =>
       removeSpaces(movie.title).includes(removeSpaces(searchQuery)) ||

@@ -24,7 +24,7 @@ const getNextDays = (numDays) => {
 
     days.push({
       formattedDate: `${year}-${month}-${day}(${weekday})`,
-      day: weekday,
+      dateObj: date, // Date 객체 추가
     });
   }
 
@@ -47,7 +47,7 @@ const Ticket = () => {
   const movies = useSelector((state) => state.movie.list);
 
   const selectedTheater = theaters.find((t) => t.theater_title === theater);
-  const price = selectedTheater ? selectedTheater.theater_price : 0; 
+  const price = selectedTheater ? selectedTheater.theater_price : 0;
 
   useEffect(() => {
     const selectedMovie = movies.find((movie) => movie.id === id);
@@ -56,7 +56,6 @@ const Ticket = () => {
     }
   }, [id, movies]);
 
-  // Firestore에서 각 시간별 잔여석 데이터 가져오기
   useEffect(() => {
     const fetchTimeSeats = async () => {
       if (theater !== "영화관" && movie !== "영화 선택" && date) {
@@ -103,6 +102,7 @@ const Ticket = () => {
 
   const handleDateClick = (formattedDate) => {
     setDate(formattedDate);
+    setTime("시간 선택");
     setTimeSeats({});
   };
 
@@ -133,6 +133,13 @@ const Ticket = () => {
 
   const isButtonDisabled =
     theater === "영화관" || movie === "영화 선택" || time === "시간 선택";
+
+  // 지난 날짜와 시간 필터링
+  const now = new Date();
+  const filteredTimes =
+    date === dates[0].formattedDate
+      ? times.filter((time) => new Date(`${now.toDateString()} ${time}`) > now) // 오늘 날짜의 경우 현재 시간 이후만 표시
+      : times;
 
   return (
     <div style={{ margin: "2em 20%" }}>
@@ -204,7 +211,6 @@ const Ticket = () => {
             ))}
           </div>
         </div>
-
         <div className="time-section">
           <h3 className="section-title">{time}</h3>
           <div className="time-selector">
@@ -214,7 +220,7 @@ const Ticket = () => {
                   <CircularProgress style={{ marginTop: "225px" }} />
                 </div>
               ) : (
-                times.map((timeitem) =>
+                filteredTimes.map((timeitem) =>
                   timeSeats[timeitem] !== undefined ? (
                     <div
                       key={timeitem}

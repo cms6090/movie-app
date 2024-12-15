@@ -43,7 +43,6 @@ const MainVideo = () => {
           </div>
           <div className="movie-video-info-container">
             <h1 className="movie-video-title">{selectedMovie.title}</h1>
-            {/* dangerouslySetInnerHTML을 사용하여 HTML 문자열 렌더링 */}
             <p
               className="movie-video-txt"
               dangerouslySetInnerHTML={{ __html: selectedMovie.info }}

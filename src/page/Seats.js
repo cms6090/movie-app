@@ -95,7 +95,7 @@ const Seats = () => {
   const handleConfirmSeats = async () => {
     if (!userId) {
       alert("로그인이 필요합니다.");
-      navigate("/login"); // 로그인 페이지로 이동
+      navigate("/login"); 
       return;
     }
 

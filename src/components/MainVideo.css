@@ -5,6 +5,11 @@
   overflow: hidden;
 }
 
+.movie-video-container {
+  display: flex;
+  justify-content: center;
+}
+
 .video-overlay {
   background: linear-gradient(
       to right,

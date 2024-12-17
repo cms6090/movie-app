@@ -19,30 +19,16 @@ const Detail = () => {
         <>
           <div className="detail-header">
             <img
-              src={movie.poster} 
+              src={movie.poster}
               alt={movie.title}
               className="detail-poster"
             />
             <div className="detail-info">
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <div>
-                  <div
-                    style={{
-                      fontSize: "1.3em",
-                      fontWeight: "600",
-                    }}
-                  >
-                    {movie.title}
-                  </div>
+                  <div className="movie-title">{movie.title}</div>
                   {movie.en_title ? (
-                    <div
-                      style={{
-                        fontSize: "0.8em",
-                        fontWeight: "500",
-                      }}
-                    >
-                      {movie.en_title}
-                    </div>
+                    <div className="movie-en-title">{movie.en_title}</div>
                   ) : (
                     <div style={{ marginBottom: "1em" }}></div>
                   )}
@@ -78,7 +64,7 @@ const Detail = () => {
             <div dangerouslySetInnerHTML={{ __html: movie.txt }}></div>
           </div>
           <hr />
-          <div style={{ marginTop: "1em" }}>
+          <div style={{ marginTop: "1em" }} className="youtube-container">
             {movie.youtube && (
               <YouTube
                 videoId={movie.youtube}

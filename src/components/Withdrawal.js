@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebaseinit";
+import "./Withdrawal.css";
 
 const Withdrawal = () => {
   const [enteredPassword, setEnteredPassword] = useState("");
@@ -97,7 +98,7 @@ const Withdrawal = () => {
           {error}
         </div>
       )}
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div className="leave-container">
         <button className="leave-check" onClick={handleWithdrawal}>
           탈퇴
         </button>

@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.other {
+.basic-header {
   display: flex;
   gap: 15px;
   color: rgba(0, 0, 0, 0.8);

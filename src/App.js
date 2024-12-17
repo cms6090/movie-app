@@ -22,8 +22,8 @@ import { useEffect, useState } from "react";
 import { auth } from "./firebaseinit";
 
 function App() {
-  const [init, setInit] = useState(false); // 초기화 상태 관리
-  const [user, setUser] = useState(null); // 로그인 상태 관리
+  const [init, setInit] = useState(false);
+  const [user, setUser] = useState(null); 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -37,14 +37,13 @@ function App() {
       setInit(true);
     });
 
-    return () => unsubscribe(); // 컴포넌트 언마운트 시 구독 해제
+    return () => unsubscribe();
   }, []);
 
   if (!init) {
-    return <div>Loading...</div>; // 초기화 중 로딩 표시
+    return <div>Loading...</div>; 
   }
 
-  // 보호된 경로 컴포넌트
   const PrivateRoute = ({ children }) => {
     if (!user) {
       alert("로그인을 하여야 합니다.");
@@ -62,14 +61,12 @@ function App() {
             <Search />
             <Routes>
               <Route path="/" element={<Main />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
               <Route path="/movies" element={<Movies />} />
               <Route path="/movies/detail/:id" element={<Detail />} />
+              <Route path="/query" element={<Query />} />
               <Route path="/ticket" element={<Ticket />}>
                 <Route path=":id" element={<Ticket />} />
               </Route>
-              <Route path="/query" element={<Query />} />
               <Route
                 path="/seats"
                 element={
@@ -78,6 +75,8 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
               <Route
                 path="/mypage"
                 element={
@@ -87,10 +86,10 @@ function App() {
                 }
               />
             </Routes>
+            <Footer />
           </div>
         </Router>
       </div>
-      <Footer />
     </div>
   );
 }

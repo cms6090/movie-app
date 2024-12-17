@@ -66,6 +66,11 @@ const Signup = () => {
 
   return (
     <div className="verification-container">
+      <div style={{ textAlign: "center" }}>
+        <div className="logo-fonts" style={{ marginBottom: "1em" }}>
+          FilmFactory
+        </div>
+      </div>
       <h5>가입을 위해 필수 정보를 입력해 주세요.</h5>
       <form onSubmit={handleSubmit} className="signup-form">
         <div className="email">
@@ -86,7 +91,10 @@ const Signup = () => {
         </div>
         <div className="password">
           <label htmlFor="password">
-            비밀번호<span style={{ color: "red" }}>*(비밀번호는 6자 이상이어야 합니다.)</span>
+            비밀번호
+            <span style={{ color: "red" }}>
+              *(비밀번호는 6자 이상이어야 합니다.)
+            </span>
           </label>
           <input
             type="password"

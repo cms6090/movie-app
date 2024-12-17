@@ -4,6 +4,16 @@
   margin: 0 20%;
 }
 
+.movie-title {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.movie-en-title {
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
 .detail-header {
   display: flex;
   gap: 20px;

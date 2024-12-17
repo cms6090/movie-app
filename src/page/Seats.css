@@ -20,6 +20,10 @@
   margin-bottom: 10px;
 }
 
+.seat-grid {
+  width: 100%;
+}
+
 .seat-button {
   padding: 5px 10px;
   border: 1px solid rgba(0, 0, 0, 0.75);

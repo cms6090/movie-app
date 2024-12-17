@@ -83,10 +83,12 @@ export default function Login() {
   return (
     <div className="login-container">
       <div style={{ textAlign: "center" }}>
-        <div>logo</div>
+        <div className="logo-fonts" style={{ marginBottom: "1em" }}>
+          FilmFactory
+        </div>
       </div>
       <form onSubmit={handleLogin}>
-        <div className="input-group">
+        <div className="input-group email">
           <label htmlFor="email">
             이메일<span style={{ color: "red" }}>*</span>
           </label>
@@ -102,7 +104,7 @@ export default function Login() {
           />
           {errors.email && <div className="error-message">{errors.email}</div>}
         </div>
-        <div className="input-group">
+        <div className="input-group password">
           <label htmlFor="password">
             비밀번호<span style={{ color: "red" }}>*</span>
           </label>

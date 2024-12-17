@@ -152,7 +152,7 @@ const ReservationDetails = () => {
 
   return (
     <div className="tab-content">
-      <h2>예약 내역</h2>
+      <h2 style={{ marginTop: "0" }}>예약 내역</h2>
       {upcomingReservations.length > 0 ? (
         <div>
           <h3>현재 예약</h3>
@@ -217,13 +217,7 @@ const ReservationItem = ({
           style={{ height: "14em", borderRadius: "10px" }}
         />
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
+      <div className="reserve-item-container">
         <div style={{ fontSize: "1.2em" }}>{movie}</div>
         <div className="reserve-item">
           <div className="reserve-item-item reserve-item-title">
@@ -256,8 +250,8 @@ const ReservationItem = ({
           </div>
         </div>
       </div>
-      <div className="cancel-container">
-        {onCancel && (
+      {onCancel && (
+        <div className="cancel-container">
           <button
             onClick={() => onCancel(reservation)}
             style={{
@@ -271,8 +265,8 @@ const ReservationItem = ({
           >
             예약 취소
           </button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };

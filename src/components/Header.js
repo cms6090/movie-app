@@ -34,7 +34,7 @@ function Header() {
           <div className="logo-fonts">FilmFactory</div>
         </Link>
       </div>
-      <div className="other">
+      <div className="basic-header">
         <Link to="/movies">
           <div className="header-contents">
             <span className="material-symbols-outlined">movie</span>

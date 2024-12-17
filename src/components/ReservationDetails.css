@@ -40,3 +40,9 @@
   align-items: flex-start;
   margin-right: 0.5em;
 }
+
+.reserve-item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

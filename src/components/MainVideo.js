@@ -36,7 +36,7 @@ const MainVideo = () => {
       <div className="video-contents">
         <div className="video-wrap">
           <div className="video-overlay"></div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div className="movie-video-container">
             <video ref={videoRef} autoPlay muted loop className="movie-video">
               <source src={selectedMovie.video} type="video/mp4" />
             </video>

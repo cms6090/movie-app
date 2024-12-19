@@ -22,34 +22,31 @@ const Seats = () => {
   const rows = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const cols = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
-  const [seatStatus, setSeatStatus] = useState({}); // 좌석 상태
+  const [seatStatus, setSeatStatus] = useState({}); 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
-  const scheduleId = `${theater}_${movie}_${date}_${time}`; // 고유 스케줄 ID 생성
+  const scheduleId = `${theater}_${movie}_${date}_${time}`; 
   const scheduleRef = doc(db, "schedules", scheduleId);
 
-  const user = auth.currentUser; // 현재 로그인된 사용자 정보
-  const userId = user ? user.uid : null; // 로그인된 사용자 UID
+  const user = auth.currentUser; 
+  const userId = user ? user.uid : null; 
 
   const formatAmount = (amount) => {
-    return amount.toLocaleString("ko-KR"); // 1,000 단위로 쉼표 추가
+    return amount.toLocaleString("ko-KR");
   };
 
-  // Firestore에서 좌석 데이터 가져오기 및 초기화
   useEffect(() => {
     const fetchSeatStatus = async () => {
       const snapshot = await getDoc(scheduleRef);
 
       if (snapshot.exists()) {
-        // 문서가 이미 있으면 데이터 설정
         setSeatStatus(snapshot.data().seats);
       } else {
-        // 문서가 없으면 초기화 데이터 생성
         const initialSeats = {};
         rows.forEach((row) => {
           cols.forEach((col) => {
             const seat = `${row}${col}`;
-            initialSeats[seat] = "available"; // 초기 상태를 'available'로 설정
+            initialSeats[seat] = "available";
           });
         });
 
@@ -60,14 +57,13 @@ const Seats = () => {
 
     fetchSeatStatus();
 
-    // 실시간 업데이트 구독
     const unsubscribe = onSnapshot(scheduleRef, (snapshot) => {
       if (snapshot.exists()) {
         setSeatStatus(snapshot.data().seats);
       }
     });
 
-    return () => unsubscribe(); // 컴포넌트 언마운트 시 구독 해제
+    return () => unsubscribe(); 
   }, [scheduleRef, rows, cols]);
 
   const handleNumClick = (count) => {
@@ -105,10 +101,8 @@ const Seats = () => {
     });
 
     try {
-      // 좌석 상태 업데이트
       await updateDoc(scheduleRef, { seats: updatedSeats });
 
-      // 예약 데이터 Firestore에 저장
       const totalAmount = price * peopleNum;
       const reservationData = {
         userId,
@@ -119,7 +113,7 @@ const Seats = () => {
         seats: selectedSeats,
         totalAmount,
         peopleNum,
-        timestamp: new Date().toISOString(), // 예약 생성 시간
+        timestamp: new Date().toISOString(),
       };
 
       await addDoc(collection(db, "reserve"), reservationData);

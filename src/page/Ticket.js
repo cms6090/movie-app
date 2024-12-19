@@ -24,7 +24,7 @@ const getNextDays = (numDays) => {
 
     days.push({
       formattedDate: `${year}-${month}-${day}(${weekday})`,
-      dateObj: date, // Date 객체 추가
+      dateObj: date,
     });
   }
 
@@ -74,11 +74,11 @@ const Ticket = () => {
                 (status) => status === "available"
               ).length;
             } else {
-              newTimeSeats[time] = 128; // 기본 좌석 수
+              newTimeSeats[time] = 128;
             }
           } catch (error) {
             console.error(`Error fetching schedule for ${time}:`, error);
-            newTimeSeats[time] = null; // 오류 시 데이터 없음으로 표시
+            newTimeSeats[time] = null;
           }
         }
 
@@ -134,11 +134,10 @@ const Ticket = () => {
   const isButtonDisabled =
     theater === "영화관" || movie === "영화 선택" || time === "시간 선택";
 
-  // 지난 날짜와 시간 필터링
   const now = new Date();
   const filteredTimes =
     date === dates[0].formattedDate
-      ? times.filter((time) => new Date(`${now.toDateString()} ${time}`) > now) // 오늘 날짜의 경우 현재 시간 이후만 표시
+      ? times.filter((time) => new Date(`${now.toDateString()} ${time}`) > now)
       : times;
 
   return (

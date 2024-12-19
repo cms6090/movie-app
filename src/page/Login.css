@@ -1,6 +1,6 @@
 .login-container {
   max-width: 50%;
-  margin: 1em auto; /* 페이지 중앙 정렬 */
+  margin: 1em auto;
   padding: 5% 20px;
   border-radius: 15px;
 }
@@ -74,9 +74,9 @@ input::placeholder {
 }
 
 .error-message {
-  color: red; /* 에러 메시지 색상 */
-  font-size: 0.9em; /* 에러 메시지 크기 */
-  margin-top: 5px; /* 위쪽 여백 */
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
 }
 
 label {

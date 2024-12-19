@@ -1,10 +1,9 @@
 import React from "react";
-import "./Footer.css"; // CSS 스타일을 위한 파일
+import "./Footer.css";
 import { HiMiniChatBubbleOvalLeft } from "react-icons/hi2";
 import { IoIosCall } from "react-icons/io";
 
 const Footer = () => {
-  // 버튼에 적용할 공통 스타일 정의
   const buttonStyle = {
     color: "rgb(140, 139, 139)",
     fontSize: "0.9em",

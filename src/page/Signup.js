@@ -113,7 +113,7 @@ const Signup = () => {
           className={`send-button ${!isFormValid() ? "disabled" : ""}`}
           disabled={!isFormValid()}
         >
-          확인
+          회원가입
         </button>
       </form>
     </div>

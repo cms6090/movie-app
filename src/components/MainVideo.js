@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const MainVideo = () => {
-  const movies = useSelector((state) => state.movie.list); // Redux에서 영화 데이터 가져오기
+  const movies = useSelector((state) => state.movie.list);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const videoRef = useRef(null);

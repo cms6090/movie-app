@@ -1,8 +1,8 @@
 .verification-container {
   max-width: 50%;
-  margin: 3% auto; /* 페이지 중앙 정렬 */
+  margin: 3% auto;
   padding: 20px;
-  background-color: #fff; /* 배경색 */
+  background-color: #fff;
   border-radius: 10px;
 }
 
@@ -35,8 +35,8 @@
 }
 
 .send-button.disabled {
-  background-color: gray; /* 비활성화된 버튼 색상 */
-  cursor: not-allowed; /* 비활성화 시 커서 스타일 */
+  background-color: gray;
+  cursor: not-allowed;
 }
 
 .signup-form {

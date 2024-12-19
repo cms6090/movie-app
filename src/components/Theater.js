@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Theater = () => {
-  const theaterlist = useSelector((state) => state.theater.list); // Redux 상태에서 데이터 가져오기
+  const theaterlist = useSelector((state) => state.theater.list);
   const [hoverIndex, setHoverIndex] = useState(0);
   const [listHeight, setListHeight] = useState(0);
   const listRef = useRef(null);

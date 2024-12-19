@@ -17,7 +17,7 @@ const Movies = () => {
             >
               <div>
                 <img
-                  src={item.poster} // Firestore 데이터에서 poster 사용
+                  src={item.poster}
                   alt={item.title}
                   className="movies-movie-card-image"
                 />

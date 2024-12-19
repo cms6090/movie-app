@@ -14,11 +14,11 @@ import "./ReservationDetails.css";
 import { getDoc } from "firebase/firestore";
 
 const ReservationDetails = () => {
-  const [pastReservations, setPastReservations] = useState([]); // 지난 예약 내역
-  const [upcomingReservations, setUpcomingReservations] = useState([]); // 예약 예정 내역
-  const [loading, setLoading] = useState(true); // 로딩 상태
+  const [pastReservations, setPastReservations] = useState([]);
+  const [upcomingReservations, setUpcomingReservations] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const movies = useSelector((state) => state.movie.list); // Redux에서 영화 정보 가져오기
+  const movies = useSelector((state) => state.movie.list);
 
   useEffect(() => {
     const fetchReservations = async () => {
@@ -39,22 +39,21 @@ const ReservationDetails = () => {
 
         const reservationsData = querySnapshot.docs.map((doc) => {
           const reservation = doc.data();
-          const movie = movies.find((m) => m.title === reservation.movie); // 영화 데이터 찾기
+          const movie = movies.find((m) => m.title === reservation.movie);
           console.log(reservation);
           return {
             id: doc.id,
             ...reservation,
-            poster: movie?.poster || "", // 포스터 URL 추가
+            poster: movie?.poster || "",
           };
         });
 
-        // 현재 시간 기준으로 "지난 예약"과 "예약 예정" 분류
-        const now = new Date(); // 현재 시간
+        const now = new Date();
         const past = [];
         const upcoming = [];
 
         reservationsData.forEach((reservation) => {
-          const cleanDate = reservation.date.replace(/\(.+\)/, ""); // 요일 제거
+          const cleanDate = reservation.date.replace(/\(.+\)/, "");
           const reservationDateTime = new Date(
             `${cleanDate}T${reservation.time}`
           );
@@ -66,7 +65,6 @@ const ReservationDetails = () => {
           }
         });
 
-        // 정렬: 상영 시간 기준 오름차순
         const sortReservations = (list) =>
           list.sort((a, b) => {
             const cleanDateA = a.date.replace(/\(.+\)/, "");

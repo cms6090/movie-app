@@ -21,9 +21,18 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "./firebaseinit";
 
+const NotFound = () => {
+  return (
+    <div style={{ margin: "2em 20%", textAlign: "center", color: "red" }}>
+      <h1>404 Error</h1>
+      <h3>존재하지 않는 페이지입니다</h3>
+    </div>
+  );
+};
+
 function App() {
   const [init, setInit] = useState(false);
-  const [user, setUser] = useState(null); 
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -41,12 +50,12 @@ function App() {
   }, []);
 
   if (!init) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   const PrivateRoute = ({ children }) => {
     if (!user) {
-      alert("로그인을 하여야 합니다.");
+      alert("로그인이 필요합니다.");
       return <Navigate to="/login" replace />;
     }
     return children;
@@ -85,6 +94,7 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route path="/*" element={<NotFound />} />
             </Routes>
             <Footer />
           </div>

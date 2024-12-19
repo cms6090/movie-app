@@ -7,7 +7,7 @@ const Query = () => {
   const queryParams = new URLSearchParams(location.search);
   const searchQuery = queryParams.get("search") || "";
 
-  const movies = useSelector((state) => state.movie.list); 
+  const movies = useSelector((state) => state.movie.list);
 
   const removeSpaces = (str) => str.replace(/\s+/g, "").toLowerCase();
 

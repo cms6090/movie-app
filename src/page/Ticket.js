@@ -218,7 +218,7 @@ const Ticket = () => {
                 <div>
                   <CircularProgress style={{ marginTop: "225px" }} />
                 </div>
-              ) : (
+              ) : filteredTimes.length > 0 ? (
                 filteredTimes.map((timeitem) =>
                   timeSeats[timeitem] !== undefined ? (
                     <div
@@ -258,6 +258,16 @@ const Ticket = () => {
                     </div>
                   )
                 )
+              ) : (
+                <div
+                  style={{
+                    textAlign: "center",
+                    color: "red",
+                    marginTop: "225px",
+                  }}
+                >
+                  예약 가능한 시간이 없습니다.
+                </div>
               )
             ) : null}
           </div>
